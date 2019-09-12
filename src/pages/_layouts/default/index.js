@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Wrapper } from './styles';
+import { Wrapper, Menu, Container, Content } from './styles';
 
 import NavMenu from '../../../components/NavMenu';
 // import { Container } from './styles';
@@ -8,8 +8,11 @@ import NavMenu from '../../../components/NavMenu';
 export default function defaultLayout({ children }) {
   return (
     <>
+      <Menu />
       <NavMenu />
-      <Wrapper>{children}</Wrapper>
+      <Wrapper>
+        <Container>{children}</Container>
+      </Wrapper>
     </>
   );
 }
