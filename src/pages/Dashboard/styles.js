@@ -15,6 +15,7 @@ export const Card = styled.div`
   flex: 1 1 auto;
   height: 400px;
   display: flex;
+  margin-top: 80px;
   justify-content: center;
   border-radius: 4px;
   position: relative;
@@ -22,7 +23,7 @@ export const Card = styled.div`
 
 export const Content = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: 15px;
 `;
 

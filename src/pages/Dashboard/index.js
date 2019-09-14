@@ -8,7 +8,7 @@ const data = {
   // A labels array that can contain any sort of values
   labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
   // Our series array that contains series objects or in this case series data arrays
-  series: [[200, 2, 4, 2, 0]],
+  series: [[]],
 };
 
 const options = {
@@ -36,9 +36,9 @@ export default function Dashboard() {
         <Card>
           <ChartWrapper> </ChartWrapper>
         </Card>
-        <Card>
+        {/* <Card>
           <ChartWrapper> </ChartWrapper>
-        </Card>
+        </Card> */}
       </Content>
     </Container>
   );

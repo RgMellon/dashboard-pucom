@@ -1,9 +1,11 @@
 import React from 'react';
-import { FaTachometerAlt, FaStore, FaList } from 'react-icons/fa';
+import { FaTachometerAlt, FaStore, FaList, FaPlus } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { history } from '../../services/history';
 
 import { Container, Wrapper, Header, Separator, Aside, Menu } from './styles';
 
-export default function NavMenu() {
+export default function NavMenu({ navigation }) {
   return (
     <Container>
       <Wrapper>
@@ -18,19 +20,33 @@ export default function NavMenu() {
 
         <Aside>
           <Menu>
-            <li>
-              <FaTachometerAlt color="#fff" size="20" />
-              <p> Dashboard </p>
-            </li>
-            <li>
-              <FaStore color="#fff" size="20" />
-              <p> Minha loja </p>
-            </li>
-            <li>
-              <FaList color="#fff" size="20" />
-              <p> Lista Cupons </p>
-            </li>
-            {/* <li> Item 4</li> */}
+            <Link to="/dashboard">
+              <li>
+                <FaTachometerAlt color="#fff" size="20" />
+                <p> Dashboard </p>
+              </li>
+            </Link>
+
+            <Link to="/store">
+              <li>
+                <FaStore color="#fff" size="20" />
+                <p> Minha loja </p>
+              </li>
+            </Link>
+
+            <Link to="/criar/cupom">
+              <li>
+                <FaPlus color="#fff" size="20" />
+                <p> Criar Cupom </p>
+              </li>
+            </Link>
+
+            <Link to="/listar/cupons">
+              <li>
+                <FaList color="#fff" size="20" />
+                <p> Listar Cupons </p>
+              </li>
+            </Link>
           </Menu>
         </Aside>
       </Wrapper>
