@@ -9,17 +9,19 @@ export function* signIn({ payload }) {
   const { email, password } = payload;
 
   try {
-    const response = yield call(api.post, 'session', {
-      name: 'Jose',
+    const response = yield call(api.post, 'users/login', {
       email,
       password,
     });
 
-    const { token, user } = response.data;
+    const { user, shop } = response.data;
 
-    yield put(sigInSucces(token, user));
+    // return;
 
-    api.defaults.headers.Authorization = `Bearer ${token}`;
+    yield put(sigInSucces(user.token, shop));
+
+    // return;
+    api.defaults.headers.Authorization = `Bearer ${user.token}`;
 
     history.push('/dashboard');
   } catch (error) {

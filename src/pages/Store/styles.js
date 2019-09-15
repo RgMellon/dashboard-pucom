@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { Form, Input } from '@rocketseat/unform';
+
 export const Container = styled.div`
   flex: 1;
   /* background: #ccc; */
@@ -95,21 +97,30 @@ export const HeaderTable = styled.div`
   }
 `;
 
-export const Form = styled.form`
+export const PucomInput = styled(Input)`
+  margin-top: 20px;
+  width: 100%;
+  height: 50px;
+  border-radius: 4px;
+  border: 0.7px solid #eee;
+  padding: 15px 5px;
+`;
+
+export const PucomForm = styled(Form)`
   /* background: red; */
   padding: 20px;
   width: 96%;
   padding-top: 20px;
   margin: 0 auto;
 
-  input {
+  /* input {
     margin-top: 20px;
     width: 100%;
     height: 50px;
     border-radius: 4px;
     border: 0.7px solid #eee;
     padding: 15px 5px;
-  }
+  } */
 
   button {
     width: 150px;
