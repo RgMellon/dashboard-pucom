@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
 import { Form, Input, Select } from '@rocketseat/unform';
 
@@ -101,15 +101,6 @@ export const PucomForm = styled(Form)`
   width: 96%;
   padding-top: 20px;
   margin: 0 auto;
-
-  button {
-    width: 150px;
-    height: 50px;
-    border-radius: 4px;
-    background: #320061;
-    margin-top: 20px;
-    color: #fff;
-  }
 `;
 
 export const TwoColumn = styled.div`
@@ -187,7 +178,7 @@ export const BadgeDiscount = styled.div`
   height: 50px;
   border-radius: 40px;
   position: absolute;
-  background: yellow;
+  background: #320061;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -199,4 +190,35 @@ export const BadgeDiscount = styled.div`
     font-weight: bold;
     font-size: 17px;
   }
+`;
+
+const rotate = keyframes`
+  from: {
+    transform: rotate(0deg)
+  } to {
+    transform: rotate(360deg)
+  }
+`;
+
+export const SubmitButton = styled.button.attrs(props => ({
+  type: 'submit',
+  disabled: props.loading,
+}))`
+  width: 150px;
+  height: 50px;
+  border-radius: 4px;
+  background: #320061;
+  margin-top: 20px;
+  color: #fff;
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  ${props =>
+    props.loading &&
+    css`
+      svg {
+        animation: ${rotate} 2s linear infinite;
+      }
+    `}
 `;

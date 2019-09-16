@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
 export const Menu = styled.div`
   height: 64px;
   margin-left: 260px;
-  background: red;
+  /* background: red; */
   /* margin-bottom: 20px; */
   /* background: red; */
 `;

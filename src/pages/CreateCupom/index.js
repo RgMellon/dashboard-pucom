@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
+import { toast } from 'react-toastify';
+import { FaSpinner } from 'react-icons/fa';
 
 import {
   Container,
@@ -17,7 +19,10 @@ import {
   OldPrice,
   WrapperPrice,
   BadgeDiscount,
+  SubmitButton,
 } from './styles';
+
+import api from '~/services/api';
 
 export default function CreateStore() {
   const [title, setTitle] = useState('');
@@ -26,14 +31,72 @@ export default function CreateStore() {
   const [discount, setDiscount] = useState('');
   const [amount, setAmount] = useState('');
   const [minutes, setMinutes] = useState('');
+  const [image, setImage] = useState('');
+  const [preview, setPreview] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [type, setType] = useState('');
+
+  const priceWithDiscount = useMemo(() => {
+    if (type === 'value') {
+      return price - discount;
+    }
+
+    if (type === 'percentage') {
+      const percent = discount / 100;
+      const subtotal = percent * price;
+      return subtotal;
+    }
+  }, [discount, type]);
 
   const options = [
     { id: 'value', title: 'valor' },
     { id: 'percentage', title: 'porcentagem' },
   ];
 
-  function handleSubmit({ title }) {
-    console.tron.log(title);
+  function handleChange(e) {
+    setPreview(URL.createObjectURL(e.target.files[0]));
+    setImage(e.target.files[0]);
+  }
+  async function handleSubmit({
+    title,
+    description,
+    type,
+    price,
+    amount,
+    discount,
+    minutes,
+  }) {
+    const data = new FormData();
+    data.append('image', image);
+    data.append('title', title);
+    data.append('description', description);
+    data.append('type', type);
+    data.append('price', price);
+    data.append('amount', amount);
+    data.append('discount', discount);
+    data.append('minutes', minutes);
+
+    setLoading(true);
+
+    try {
+      await api.post('coupons', data);
+      toast.success('Cupom adicionado com sucesso :D');
+
+      setDiscount('');
+      setPreview('');
+      setAmount('');
+      setDescription('');
+      setType('');
+      setTitle('');
+      setPrice('');
+      setMinutes('');
+      setImage('');
+
+      setLoading(false);
+    } catch (e) {
+      setLoading(false);
+      toast.error('Falha ao adicionar cupom');
+    }
   }
 
   return (
@@ -45,6 +108,8 @@ export default function CreateStore() {
         </HeaderTable>
 
         <PucomForm onSubmit={handleSubmit}>
+          <input type="file" name="" id="image" onChange={handleChange} />
+
           <PucomInput
             name="title"
             value={title}
@@ -62,25 +127,35 @@ export default function CreateStore() {
           />
 
           <PucomSelect
-            // defaultValue="percentage"
             name="type"
+            onChange={e => setType(e.target.value)}
             options={options}
+            placeholder="Selecione um tipo de desconto"
           />
 
           <TwoColumn>
             <PucomInput
+              type="number"
+              step="0.01"
+              min="0"
+              // max="1000÷"ß
               name="price"
               value={price}
               onChange={e => setPrice(e.target.value)}
-              type="text"
+              // type="text"
               placeholder="Preço Original do produto"
             />
 
             <PucomInput
+              type="number"
+              step="0.01"
+              min="0"
+              // max="10"
+              disabled={!price.length > 0}
               name="discount"
               value={discount}
               onChange={e => setDiscount(e.target.value)}
-              type="text"
+              // type="text"
               placeholder="Quantidade de desconto no produto  "
             />
           </TwoColumn>
@@ -89,7 +164,7 @@ export default function CreateStore() {
             name="amount"
             value={amount}
             onChange={e => setAmount(e.target.value)}
-            type="text"
+            type="number"
             placeholder="Quantidade de cupom disponiveis"
           />
 
@@ -98,31 +173,42 @@ export default function CreateStore() {
             value={minutes}
             onChange={e => setMinutes(e.target.value)}
             type="text"
-            placeholder="Quantidade de cupom disponiveis"
+            placeholder="Tempo de validade em minutos"
           />
 
           <WrapperButton>
-            <button> Criar </button>
+            <SubmitButton loading={loading}>
+              {loading ? <FaSpinner size={14} color="#FFF" /> : <p> Criar </p>}
+            </SubmitButton>
           </WrapperButton>
         </PucomForm>
       </ContentLeft>
 
       <ContentRight>
-        {title && (
+        {preview && (
           <CardPucom>
             <LeftCupom>
-              <img
-                src="https://img.elo7.com.br/product/original/1A7BBC4/10-camisa-personalizada-em-todos-os-temas-e-eventos-camiseta-feminina-personalizada.jpg"
-                alt=""
-              />
-              <BadgeDiscount>
-                <p> 30% </p>
-              </BadgeDiscount>
+              <img src={preview} alt="" />
+              {discount && (
+                <BadgeDiscount>
+                  {type === 'value' ? (
+                    <p> {parseFloat(discount).toFixed(2)} </p>
+                  ) : (
+                    <p> {discount}% </p>
+                  )}
+                </BadgeDiscount>
+              )}
             </LeftCupom>
             <RightCupom>
               <WrapperPrice>
-                <OldPrice> R$12.00 </OldPrice>
-                <DiscountPrice> R$6.00 </DiscountPrice>
+                {price && (
+                  <OldPrice> R${parseFloat(price).toFixed(2)} </OldPrice>
+                )}
+                {priceWithDiscount > 0 && (
+                  <DiscountPrice>
+                    <p> {priceWithDiscount} </p>
+                  </DiscountPrice>
+                )}
               </WrapperPrice>
               <h4> {title}</h4>
             </RightCupom>
