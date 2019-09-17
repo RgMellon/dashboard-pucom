@@ -8,14 +8,6 @@ export const Wrapper = styled.div`
   /* width: 100%; */
 `;
 
-export const Menu = styled.div`
-  height: 64px;
-  margin-left: 260px;
-  /* background: red; */
-  /* margin-bottom: 20px; */
-  /* background: red; */
-`;
-
 export const Container = styled.div`
   /* background: rgb(238, 238, 238); */
   background: #eee;
@@ -27,5 +19,5 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   width: 90%;
-  background: blue;
+  /* background: blue; */
 `;

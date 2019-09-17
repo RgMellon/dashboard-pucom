@@ -1,8 +1,19 @@
 import React from 'react';
+
+import { FaGenderless, FaMobile } from 'react-icons/fa';
 import ChartistGraph from 'react-chartist';
 
-import { Container, Card, Content, MainChart } from './styles';
+import {
+  Container,
+  Card,
+  Content,
+  MainChart,
+  ContentInfoCard,
+  ContainerMiniCard,
+  WrapperIcon,
+} from './styles';
 
+// import MiniCard from '~/components/MiniCard';
 // Create a simple line chart
 const data = {
   // A labels array that can contain any sort of values
@@ -72,6 +83,23 @@ export default function Dashboard() {
           </p>
         </Card>
       </Content>
+      <ContentInfoCard>
+        <ContainerMiniCard>
+          <WrapperIcon background="linear-gradient(60deg,#26c6da,#00acc1)">
+            <FaGenderless size={40} color="#fff" />
+          </WrapperIcon>
+        </ContainerMiniCard>
+        <ContainerMiniCard>
+          <WrapperIcon background="linear-gradient(-120deg, #954cbf, #320061)">
+            <FaMobile size={40} color="#fff" />
+          </WrapperIcon>
+        </ContainerMiniCard>
+        <ContainerMiniCard>
+          <WrapperIcon background="linear-gradient(60deg,#ef5350,#e53935)">
+            {/* <FaTransgenderAlt size={40} color="#fff" /> */}
+          </WrapperIcon>
+        </ContainerMiniCard>
+      </ContentInfoCard>
     </Container>
   );
 }

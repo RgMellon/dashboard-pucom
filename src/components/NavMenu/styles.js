@@ -25,7 +25,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Header = styled.div`
-  margin-top: 20px;
+  /* margin-top: 20px; */
   display: flex;
   width: 100%;
   height: 100px;
