@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import { Container, HeaderTable, TableCupons } from './styles';
 
+// import api from '~/services/api';
+
 export default function ListCupons() {
+  // useEffect(() => {
+  //   async function getCupons() {
+  //     const response = await api.get('')
+  //   }
+  // }, []);
   return (
     <Container>
       <HeaderTable>

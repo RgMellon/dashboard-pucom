@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 // export const Container = styled.div``;
 
@@ -58,28 +58,22 @@ export const MenuLeft = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  input {
-    padding: 15px 20px;
-    width: 80%;
-    height: 50px;
-    border: 0;
-    outline: none;
-    border-radius: 4px;
-    border-bottom: 2px solid #954cbf;
-  }
 
-  button {
+  form {
+    width: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
-    width: 80px;
-    height: 45px;
-    background: #954cbf;
-    color: #fff;
-    border: 0px;
-    outline: none;
-    border-radius: 4px;
-    margin-right: 20px;
+
+    input {
+      padding: 15px 20px;
+      width: 97%;
+      height: 50px;
+      border: 0;
+      outline: none;
+      border-radius: 4px;
+      border-bottom: 2px solid #954cbf;
+      margin-right: 20px;
+    }
   }
 `;
 
@@ -93,4 +87,45 @@ export const ModalLogout = styled.div`
   top: 80px;
   right: 50px;
   z-index: 999;
+`;
+
+const rotate = keyframes`
+  from: {
+    transform: rotate(0deg)
+  } to {
+    transform: rotate(360deg)
+  }
+`;
+
+export const SubmitButton = styled.button.attrs(props => ({
+  type: 'submit',
+  disabled: props.loading,
+}))`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 45px;
+  background: #954cbf;
+  color: #fff;
+  border: 0px;
+  outline: none;
+  border-radius: 4px;
+  margin-right: 20px;
+
+  p {
+    display: flex;
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  ${props =>
+    props.loading &&
+    css`
+      svg {
+        animation: ${rotate} 2s linear infinite;
+      }
+    `}
 `;

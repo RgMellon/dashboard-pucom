@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { FaGenderless, FaMobile } from 'react-icons/fa';
 import ChartistGraph from 'react-chartist';
+import ChartistTooltip from 'chartist-plugin-tooltips-updated';
 
 import {
   Container,
@@ -9,46 +9,46 @@ import {
   Content,
   MainChart,
   ContentInfoCard,
-  ContainerMiniCard,
-  WrapperIcon,
+  DetailFinTitle,
 } from './styles';
 
-// import MiniCard from '~/components/MiniCard';
-// Create a simple line chart
-const data = {
-  // A labels array that can contain any sort of values
-  labels: [
-    '01',
-    '02',
-    '03',
-    '04',
-    '05',
-    '06',
-    '07',
-    '08',
-    '08',
-    '10',
-    '11',
-    '12',
-    '13',
-    '14',
-    '15',
-  ],
-  // Our series array that contains series objects or in this case series data arrays
-  series: [
-    [20, 200, 100, 700, 800, 100, 30, 200, 100, 201, 20, 199, 12, 111, 19],
-  ],
-};
+import SectionMiniCardDetail from '~/components/SectionMiniCardDetail';
+import SectionMiniCardMoney from '~/components/SectionMiniCardMoney';
+import Table from '~/components/Table';
+
+import api from '~/services/api';
 
 const options = {
   width: '500px',
-  height: '350px',
+  height: '386px',
+  plugins: [
+    ChartistTooltip({
+      appendToBody: true,
+    }),
+  ],
   // color: '#fff',
 };
 
 const type = 'Bar';
 
 export default function Dashboard() {
+  const [couponsTaked, setCouponsTaked] = useState([]);
+  const [viewShops, setViewShops] = useState([]);
+
+  useEffect(() => {
+    async function getdataMainCharts() {
+      const response = await api.get('datas/coupons/days/used');
+      const { couponsTake, shopViews } = await response.data;
+
+      // console.tron.log(couponsTake);
+
+      setCouponsTaked(couponsTake.data);
+      setViewShops(shopViews.data);
+    }
+
+    getdataMainCharts();
+  }, []);
+
   return (
     <Container>
       <Content>
@@ -56,14 +56,14 @@ export default function Dashboard() {
           <MainChart>
             <ChartistGraph
               // color="red"
-              data={data}
+              data={couponsTaked}
               options={options}
               type={type}
             />
           </MainChart>
           <h1> Quantidade de cupons baixados nos ultimos 15 dias </h1>
           <p>
-            <span> 89 </span> cupons foram baixados{' '}
+            <span> 89 </span> cupons foram baixados
           </p>
         </Card>
 
@@ -72,7 +72,7 @@ export default function Dashboard() {
             <ChartistGraph
               className="second-chart"
               // color="red"
-              data={data}
+              data={couponsTaked}
               options={options}
               type="Line"
             />
@@ -83,23 +83,36 @@ export default function Dashboard() {
           </p>
         </Card>
       </Content>
+
+      {/* <DetailFinTitle> Detalhe Quantitativo </DetailFinTitle> */}
       <ContentInfoCard>
-        <ContainerMiniCard>
-          <WrapperIcon background="linear-gradient(60deg,#26c6da,#00acc1)">
-            <FaGenderless size={40} color="#fff" />
-          </WrapperIcon>
-        </ContainerMiniCard>
-        <ContainerMiniCard>
-          <WrapperIcon background="linear-gradient(-120deg, #954cbf, #320061)">
-            <FaMobile size={40} color="#fff" />
-          </WrapperIcon>
-        </ContainerMiniCard>
-        <ContainerMiniCard>
-          <WrapperIcon background="linear-gradient(60deg,#ef5350,#e53935)">
-            {/* <FaTransgenderAlt size={40} color="#fff" /> */}
-          </WrapperIcon>
-        </ContainerMiniCard>
+        <SectionMiniCardDetail />
       </ContentInfoCard>
+
+      {/* <DetailFinTitle> Financeiro </DetailFinTitle> */}
+      <ContentInfoCard>
+        <SectionMiniCardMoney />
+      </ContentInfoCard>
+
+      <Content>
+        <section>
+          <Table
+            titleHeader="Ultimos cupons retirados"
+            bkHeader="linear-gradient(60deg,#66bb6a,#43a047)"
+            tableHeader={['Nome', 'Email', 'Teste']}
+            dataTable={[['Jose', 'Maria', 'Teste'], ['Jose', 'Maria', 'Teste']]}
+          />
+        </section>
+
+        <section>
+          <Table
+            titleHeader="Ultimos cupons vistos"
+            bkHeader="linear-gradient(60deg,#ffa726,#fb8c00)"
+            tableHeader={['Nome', 'Email']}
+            dataTable={[['Jose', 'Maria'], ['Moises2', 'Maria2']]}
+          />
+        </section>
+      </Content>
     </Container>
   );
 }

@@ -4,12 +4,11 @@ import styled from 'styled-components';
 
 export const ContainerMiniCard = styled.div`
   width: 100%;
-  /* height: 130px; */
+  height: 130px;
   /* background: red; */
   border-radius: 4px;
   background: #fff;
   display: flex;
-  padding-bottom: 20px;
 `;
 
 export const WrapperIcon = styled.div`
@@ -37,7 +36,7 @@ export const WrapperIcon = styled.div`
 
   p {
     color: #fff;
-    font-size: 20px;
+    font-size: 30px;
     font-weight: bold;
   }
 `;
