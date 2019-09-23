@@ -14,8 +14,7 @@ export const HeaderTable = styled.div`
   /* margin: 0 auto; */
   /* left: 251px; */
   top: -20px;
-  z-index: 999;
-  background: ${props => props.bkHeader};
+  z-index: 999; background: ${props => props.bkHeader};
   margin: 0 auto;
   border-radius: 4px;
   /* margin-top: -20px; */

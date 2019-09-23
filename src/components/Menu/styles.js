@@ -87,6 +87,24 @@ export const ModalLogout = styled.div`
   top: 80px;
   right: 50px;
   z-index: 999;
+  padding: 10px;
+
+  ul {
+    li {
+      button {
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        width: 100%;
+
+        &:hover {
+          background: rgba(0, 0, 0, 0.1);
+          border-radius: 4px;
+        }
+      }
+    }
+  }
 `;
 
 const rotate = keyframes`

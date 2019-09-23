@@ -20,7 +20,7 @@ export default function SectionMiniCardMoney() {
 
       const dataResponse = response.data[0].map((item, index) => ({
         ...item,
-        priceFormated: `R$${parseFloat(item.value).toFixed(2)}`,
+
         background: bkg[index],
       }));
 
@@ -34,7 +34,7 @@ export default function SectionMiniCardMoney() {
       {data.map(card => (
         <MiniCard
           boxColor={card.background}
-          infoBox={card.priceFormated}
+          infoBox={card.value}
           titleCard={card.title}
         />
       ))}

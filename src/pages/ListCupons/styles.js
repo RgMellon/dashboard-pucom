@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  margin-top: 80px;
+  margin-top: 50px;
   /* background: red; */
   width: 100%;
   height: 100vh;
@@ -19,7 +19,7 @@ export const HeaderTable = styled.div`
   width: 77%;
   /* margin: 0 auto; */
   left: 251px;
-  top: 150px;
+  top: 143px;
 
   background: #320061;
   margin: 0 auto;
@@ -99,4 +99,22 @@ export const TableCupons = styled.table`
       }
     }
   }
+`;
+
+export const Actions = styled.div`
+  display: flex;
+
+  button {
+    margin: 0 20px 0 0%;
+    height: 30px;
+    width: 50px;
+    outline: none;
+    border: 0px;
+  }
+`;
+
+export const ContentDialog = styled.div`
+  background: #320061;
+  width: 400px;
+  height: 200px;
 `;

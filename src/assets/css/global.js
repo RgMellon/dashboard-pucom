@@ -5,6 +5,7 @@ import { createGlobalStyle } from 'styled-components';
 // import 'react-datepicker/dist/react-datepicker.css';
 // import 'react-toastify/dist/ReactToastify.css';
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 export default createGlobalStyle`
 .App {

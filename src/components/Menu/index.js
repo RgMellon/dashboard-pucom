@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import { toast } from 'react-toastify';
 
 import {
   MdChevronRight,
   MdPerson,
-  MdNotifications,
   MdLocalOffer,
+  MdExitToApp,
 } from 'react-icons/md';
 
 import { FaSpinner } from 'react-icons/fa';
 
 import api from '~/services/api';
+import history from '~/services/history';
 
 import {
   MenuLeft,
@@ -22,13 +24,26 @@ import {
   SubmitButton,
 } from './styles';
 
+import { logout } from '~/store/modules/auth/actions';
+import Notification from '../NotificationMenu';
+
 export default function Menu() {
+  const dispatch = useDispatch();
+
   const [hide, setHide] = useState(false);
   const [hashCupom, setHashCupom] = useState('');
   const [loading, setLoading] = useState(false);
 
   function handleMenu() {
     setHide(!hide);
+  }
+
+  function handleLogout() {
+    dispatch(logout());
+  }
+
+  function handleRedirectCreateCupom() {
+    history.push('/criar/cupom');
   }
 
   async function handleTakeCupom() {
@@ -78,13 +93,24 @@ export default function Menu() {
           </Form>
         </MenuLeft>
         <MenuRight>
-          <MdLocalOffer color="#666" size="20" />
-
-          {hide && <ModalLogout />}
-
-          <button type="button">
-            <MdNotifications color="#666" size="20" />
+          <button type="button" onClick={handleRedirectCreateCupom}>
+            <MdLocalOffer color="#666" size="20" />
           </button>
+
+          {hide && (
+            <ModalLogout>
+              <ul>
+                <li>
+                  <button type="button" onClick={handleLogout}>
+                    <MdExitToApp size={18} color="#333" />
+                    Sair
+                  </button>
+                </li>
+              </ul>
+            </ModalLogout>
+          )}
+
+          <Notification />
 
           <button type="button" onClick={handleMenu}>
             <MdPerson color="#666" size="20" />
