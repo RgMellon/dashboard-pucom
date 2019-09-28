@@ -18,7 +18,6 @@ export default function Table({
     <>
       <HeaderTable bkHeader={bkHeader}>
         <h1> {titleHeader} </h1>
-        {/* <p> Aqui você encontra os cupons cadastrdos </p> */}
       </HeaderTable>
       <PucomTable>
         <thead>
@@ -30,11 +29,13 @@ export default function Table({
         </thead>
 
         <tbody>
-          {dataTable.map(itemTr => (
+          {dataTable.map(i => (
             <tr>
-              {itemTr.map(itemTd => (
-                <td> {itemTd}</td>
-              ))}
+              <td>
+                <img src={i.image} alt="" />
+              </td>
+              <td> {i.date}</td>
+              <td>{i.title}</td>
             </tr>
           ))}
         </tbody>

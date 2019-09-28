@@ -14,7 +14,8 @@ export const HeaderTable = styled.div`
   /* margin: 0 auto; */
   /* left: 251px; */
   top: -20px;
-  z-index: 999; background: ${props => props.bkHeader};
+  z-index: 999;
+  background: ${props => props.bkHeader};
   margin: 0 auto;
   border-radius: 4px;
   /* margin-top: -20px; */
@@ -81,6 +82,12 @@ export const PucomTable = styled.table`
       font-size: 14px;
       font-weight: 300;
       padding: 12px 24px;
+
+      img {
+        width: 40px;
+        border-radius: 50%;
+        border: 1px solid #ccc;
+      }
     }
 
     tr {

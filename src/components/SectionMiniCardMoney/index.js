@@ -18,6 +18,7 @@ export default function SectionMiniCardMoney() {
     async function getFinancyCards() {
       const response = await api.get('datas/coupons/days/financier');
 
+      // console.tron.log(response.data);
       const dataResponse = response.data[0].map((item, index) => ({
         ...item,
 

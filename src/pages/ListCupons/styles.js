@@ -86,6 +86,12 @@ export const TableCupons = styled.table`
       font-size: 14px;
       font-weight: 300;
       padding: 12px 24px;
+
+      img {
+        width: 50px;
+        border-radius: 25px;
+        border: 0.8px solid #ccc;
+      }
     }
 
     tr {

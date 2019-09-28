@@ -61,7 +61,6 @@ export default function Menu() {
       setLoading(false);
       setHashCupom('');
     } catch (e) {
-      console.tron.log('mas o que é isso');
       toast.error('Erro ao baixar cupom');
       setHashCupom('');
       setLoading(false);

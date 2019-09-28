@@ -13,14 +13,14 @@ export const ContainerMiniCard = styled.div`
 `;
 
 export const WrapperIcon = styled.div`
-  width: 100px;
-  height: 80px;
+  width: 120px;
+  height: 100px;
   background: ${props => props.background};
   margin-top: -20px;
   /* margin-left: 10px; */
 
-  max-width: 85px;
-  max-height: 85px;
+  max-width: 105px;
+  max-height: 105px;
   line-height: 85px;
   padding: 15px !important;
 

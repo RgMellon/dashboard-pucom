@@ -3,20 +3,14 @@ import React, { useEffect, useState } from 'react';
 import ChartistGraph from 'react-chartist';
 import ChartistTooltip from 'chartist-plugin-tooltips-updated';
 
-import {
-  Container,
-  Card,
-  Content,
-  MainChart,
-  ContentInfoCard,
-  DetailFinTitle,
-} from './styles';
+import api from '~/services/api';
+
+import { Container, Card, Content, MainChart, ContentInfoCard } from './styles';
 
 import SectionMiniCardDetail from '~/components/SectionMiniCardDetail';
 import SectionMiniCardMoney from '~/components/SectionMiniCardMoney';
-import Table from '~/components/Table';
-
-import api from '~/services/api';
+import LastCuponsViews from '~/components/LastCuponsViews';
+import LastCuponsTaked from '~/components/LastCuponsTaked';
 
 const options = {
   width: '500px',
@@ -37,13 +31,16 @@ export default function Dashboard() {
 
   useEffect(() => {
     async function getdataMainCharts() {
-      const response = await api.get('datas/coupons/days/used');
-      const { couponsTake, shopViews } = await response.data;
+      try {
+        const response = await api.get('datas/coupons/days/used');
+        const { couponsTake, shopViews } = await response.data;
+        // console.tron.log(couponsTake);
 
-      // console.tron.log(couponsTake);
-
-      setCouponsTaked(couponsTake.data);
-      setViewShops(shopViews.data);
+        setCouponsTaked(couponsTake.data);
+        setViewShops(shopViews.data);
+      } catch (e) {
+        console.tron.log(e);
+      }
     }
 
     getdataMainCharts();
@@ -84,34 +81,17 @@ export default function Dashboard() {
         </Card>
       </Content>
 
-      {/* <DetailFinTitle> Detalhe Quantitativo </DetailFinTitle> */}
       <ContentInfoCard>
         <SectionMiniCardDetail />
       </ContentInfoCard>
 
-      {/* <DetailFinTitle> Financeiro </DetailFinTitle> */}
       <ContentInfoCard>
         <SectionMiniCardMoney />
       </ContentInfoCard>
 
       <Content>
-        <section>
-          <Table
-            titleHeader="Ultimos cupons retirados"
-            bkHeader="linear-gradient(60deg,#66bb6a,#43a047)"
-            tableHeader={['Nome', 'Email', 'Teste']}
-            dataTable={[['Jose', 'Maria', 'Teste'], ['Jose', 'Maria', 'Teste']]}
-          />
-        </section>
-
-        <section>
-          <Table
-            titleHeader="Ultimos cupons vistos"
-            bkHeader="linear-gradient(60deg,#ffa726,#fb8c00)"
-            tableHeader={['Nome', 'Email']}
-            dataTable={[['Jose', 'Maria'], ['Moises2', 'Maria2']]}
-          />
-        </section>
+        <LastCuponsViews />
+        <LastCuponsTaked />
       </Content>
     </Container>
   );
