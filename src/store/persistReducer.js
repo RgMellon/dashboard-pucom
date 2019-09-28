@@ -6,7 +6,7 @@ export default reducers => {
     {
       key: 'dash-pucom',
       storage,
-      whitelist: ['auth', 'user'],
+      whitelist: ['auth', 'user', 'cupom'],
     },
     reducers
   );

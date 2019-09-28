@@ -8,6 +8,7 @@ import SignIn from '../pages/SignIn';
 import Dashboard from '../pages/Dashboard';
 import Store from '../pages/Store';
 import CreateCupom from '../pages/CreateCupom';
+import EditCupom from '../pages/EditCupom';
 import ListCupons from '../pages/ListCupons';
 // import MeetappDetail from '../pages/MeetappDetail';
 // import MeetapppUpdate from '../pages/MeetappUpdate';
@@ -21,6 +22,7 @@ export default function Routes() {
       <Route path="/store" component={Store} isPrivate />
       <Route path="/listar/cupons" component={ListCupons} isPrivate />
       <Route exact path="/criar/cupom" component={CreateCupom} isPrivate />
+      <Route exact path="/editar/cupom" component={EditCupom} isPrivate />
     </Switch>
   );
 }

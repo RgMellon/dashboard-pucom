@@ -1,4 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+
+import { useDispatch } from 'react-redux';
 
 import { MdEdit, MdDelete } from 'react-icons/md';
 import { confirmAlert } from 'react-confirm-alert';
@@ -7,8 +9,13 @@ import { toast } from 'react-toastify';
 import { Container, HeaderTable, TableCupons, Actions } from './styles';
 
 import api from '~/services/api';
+import history from '~/services/history';
+
+import { setCupom } from '~/store/modules/cupom/action';
 
 export default function ListCupons() {
+  const dispatch = useDispatch();
+
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -44,9 +51,14 @@ export default function ListCupons() {
     });
   }
 
+  async function handleRedirect(item) {
+    await dispatch(setCupom(item));
+    history.push('/editar/cupom');
+  }
+
   async function handleDelete(id) {
     try {
-      const response = await api.delete(`coupons/${id}`);
+      await api.delete(`coupons/${id}`);
 
       const item = await data.filter(item => item.id !== id);
       setData(item);
@@ -91,7 +103,12 @@ export default function ListCupons() {
               </td>
               <td>
                 <Actions>
-                  <button type="button">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleRedirect(item);
+                    }}
+                  >
                     <MdEdit size={18} color="#954cbf" />
                   </button>
                   <button
