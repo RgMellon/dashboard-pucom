@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import InputMask from 'react-input-mask';
 import { Form, Input } from '@rocketseat/unform';
 
 export const Container = styled.div`
@@ -98,7 +98,16 @@ export const HeaderTable = styled.div`
 `;
 
 export const PucomInput = styled(Input)`
-  margin-top: 20px;
+  margin-top: 10px;
+  width: 100%;
+  height: 50px;
+  border-radius: 4px;
+  border: 0.7px solid #eee;
+  padding: 15px 5px;
+`;
+
+export const PucomInputMask = styled(InputMask)`
+  margin-top: 10px;
   width: 100%;
   height: 50px;
   border-radius: 4px;
@@ -112,6 +121,14 @@ export const PucomForm = styled(Form)`
   width: 96%;
   padding-top: 20px;
   margin: 0 auto;
+
+  span {
+    display: block;
+    font-weight: 300;
+    margin-top: 20px;
+    font-size: 13px;
+    color: #333;
+  }
 
   /* input {
     margin-top: 20px;
@@ -136,8 +153,11 @@ export const TwoColumn = styled.div`
   display: flex;
   justify-content: space-between;
 
-  input {
+  div {
     width: 49%;
+  }
+  input {
+    width: 99%;
   }
 `;
 
@@ -145,4 +165,18 @@ export const WrapperButton = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-end;
+`;
+
+export const SearchCep = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: -10px;
+
+  button {
+    width: 80px;
+  }
+  input {
+    margin-right: 10px;
+    margin-top: 20px;
+  }
 `;

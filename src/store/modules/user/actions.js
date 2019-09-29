@@ -5,10 +5,10 @@ export function updateProfileRequest(data) {
   };
 }
 
-export function updateProfileSucces(user) {
-  // console.tron.log(user);
+export function updateProfileSucces(data) {
+  // console.tron.log(data);
   return {
     type: '@user/UPDATE_SUCCESS',
-    payload: { user },
+    payload: { data },
   };
 }

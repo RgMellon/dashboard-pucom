@@ -83,8 +83,6 @@ export default function EditCupom() {
 
     setLoading(true);
 
-    console.tron.log(cupom.id);
-
     try {
       await api.post(`coupons/${cupom.id}`, data);
       toast.success('Cuuuupooom atualizado');

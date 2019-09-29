@@ -8,20 +8,10 @@ import { updateProfileSucces } from './actions';
 
 export function* updateProfile({ payload }) {
   try {
-    const { name, email, ...rest } = payload.data;
-
-    const profile = Object.assign(
-      { name, email },
-      rest.oldPassword ? rest : {}
-    );
-
-    const response = yield call(api.put, 'users', profile);
-
+    const response = yield call(api.post, 'shops', payload.data);
+    // console.tron.log(response.data);
     yield put(updateProfileSucces(response.data));
-
-    toast.success('Perfil atualizado com sucesso');
-
-    // toast.succes('Perfil atualizado com sucesso');
+    toast.success('Perfial da loja atualizada com sucesso');
   } catch (error) {
     toast.error('Erro ao atualizar perfil');
   }
