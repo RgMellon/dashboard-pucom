@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
+
 import InputMask from 'react-input-mask';
 import { Form, Input } from '@rocketseat/unform';
 
@@ -45,6 +46,7 @@ export const CardProfile = styled.div`
     width: 110px;
     height: 110px;
     border-radius: 60px;
+    object-fit: cover;
   }
 
   h1 {
@@ -130,15 +132,6 @@ export const PucomForm = styled(Form)`
     color: #333;
   }
 
-  /* input {
-    margin-top: 20px;
-    width: 100%;
-    height: 50px;
-    border-radius: 4px;
-    border: 0.7px solid #eee;
-    padding: 15px 5px;
-  } */
-
   button {
     width: 150px;
     height: 50px;
@@ -147,6 +140,37 @@ export const PucomForm = styled(Form)`
     margin-top: 20px;
     color: #fff;
   }
+`;
+
+const rotate = keyframes`
+  from: {
+    transform: rotate(0deg)
+  } to {
+    transform: rotate(360deg)
+  }
+`;
+
+export const SubmitButton = styled.button.attrs(props => ({
+  type: 'submit',
+  disabled: props.loading,
+}))`
+  width: 150px;
+  height: 50px;
+  border-radius: 4px;
+  background: #320061;
+  margin-top: 20px;
+  color: #fff;
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  ${props =>
+    props.loading &&
+    css`
+      svg {
+        animation: ${rotate} 2s linear infinite;
+      }
+    `}
 `;
 
 export const TwoColumn = styled.div`

@@ -22,9 +22,11 @@ import {
   ModalLogout,
   MenuRight,
   SubmitButton,
+  QrButton,
 } from './styles';
 
 import { logout } from '~/store/modules/auth/actions';
+import { setQrCode } from '~/store/modules/qrCode/actions';
 import Notification from '../NotificationMenu';
 
 export default function Menu() {
@@ -33,6 +35,10 @@ export default function Menu() {
   const [hide, setHide] = useState(false);
   const [hashCupom, setHashCupom] = useState('');
   const [loading, setLoading] = useState(false);
+
+  function handleQrCode() {
+    dispatch(setQrCode());
+  }
 
   function handleMenu() {
     setHide(!hide);
@@ -77,7 +83,7 @@ export default function Menu() {
               name="hash"
               type="text"
               onChange={e => setHashCupom(e.target.value)}
-              placeholder="Digite o codigo do cupom para dar baixo"
+              placeholder="Digite o codigo do cupom para dar baixa"
             />
 
             <SubmitButton loading={loading}>
@@ -90,6 +96,8 @@ export default function Menu() {
               )}
             </SubmitButton>
           </Form>
+
+          <QrButton onClick={handleQrCode} />
         </MenuLeft>
         <MenuRight>
           <button type="button" onClick={handleRedirectCreateCupom}>

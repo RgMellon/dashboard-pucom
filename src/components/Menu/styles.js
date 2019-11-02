@@ -2,14 +2,17 @@ import styled, { css, keyframes } from 'styled-components';
 
 // export const Container = styled.div``;
 
+export const QrButton = styled.button`
+  width: 50px;
+  height: 45px;
+  border-radius: 50%;
+  background: red;
+`;
+
 export const Container = styled.div`
   height: 105px;
   margin-left: 260px;
   background: #eee;
-  /* align-items: center;
-  justify-content: center; */
-  /* margin-bottom: 20px; */
-  /* background: red; */
 `;
 
 export const WrapperMenu = styled.div`

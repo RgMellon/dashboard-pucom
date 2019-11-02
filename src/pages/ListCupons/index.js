@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
+import { parseISO, formatDistance } from 'date-fns';
+import pt from 'date-fns/locale/pt';
+
 import { useDispatch } from 'react-redux';
 
 import { MdEdit, MdDelete } from 'react-icons/md';
@@ -10,7 +13,6 @@ import { Container, HeaderTable, TableCupons, Actions } from './styles';
 
 import api from '~/services/api';
 import history from '~/services/history';
-
 import { setCupom } from '~/store/modules/cupom/action';
 
 export default function ListCupons() {
@@ -26,7 +28,17 @@ export default function ListCupons() {
             limit: 200,
           },
         });
-        setData(response.data.coupons);
+
+        const newData = response.data.coupons.map(i => ({
+          ...i,
+          timeDistance: formatDistance(parseISO(i.created_at), new Date(), {
+            addSuffix: true,
+            locale: pt,
+          }),
+          typeDiscount: i.type === 'value' ? 'R$' : '%',
+        }));
+
+        setData(newData);
       } catch (e) {
         console.tron.log(e);
       }
@@ -80,8 +92,8 @@ export default function ListCupons() {
       <TableCupons>
         <thead>
           <tr>
+            <th> </th>
             <th> Data Criação </th>
-            <th> Imagem </th>
             <th> Titulo </th>
             <th> Desconto </th>
             <th> Ações </th>
@@ -90,16 +102,17 @@ export default function ListCupons() {
 
         <tbody>
           {data.map(item => (
-            <tr>
+            <tr key={item.id}>
               <td>
                 <img src={item.image} alt="" />
               </td>
 
-              <td> {item.created_at} </td>
+              <td> {item.timeDistance} </td>
 
               <td> {item.title} </td>
               <td>
-                {item.discount} / {item.type}
+                {item.discount}
+                {item.typeDiscount}
               </td>
               <td>
                 <Actions>

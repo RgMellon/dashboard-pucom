@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import ChartistGraph from 'react-chartist';
 import ChartistTooltip from 'chartist-plugin-tooltips-updated';
@@ -11,6 +12,7 @@ import SectionMiniCardDetail from '~/components/SectionMiniCardDetail';
 import SectionMiniCardMoney from '~/components/SectionMiniCardMoney';
 import LastCuponsViews from '~/components/LastCuponsViews';
 import LastCuponsTaked from '~/components/LastCuponsTaked';
+import QrCodeContainer from '~/components/QrCodeContainer';
 
 const options = {
   width: '500px',
@@ -20,12 +22,13 @@ const options = {
       appendToBody: true,
     }),
   ],
-  // color: '#fff',
 };
 
 const type = 'Bar';
 
 export default function Dashboard() {
+  const { open } = useSelector(state => state.qrCode);
+
   const [couponsTaked, setCouponsTaked] = useState([]);
   const [viewShops, setViewShops] = useState([]);
 
@@ -38,6 +41,7 @@ export default function Dashboard() {
 
         setCouponsTaked(couponsTake.data);
         setViewShops(shopViews.data);
+        console.tron.log(couponsTake.data, 'cupons');
       } catch (e) {
         console.tron.log(e);
       }
@@ -48,6 +52,7 @@ export default function Dashboard() {
 
   return (
     <Container>
+      {open && <QrCodeContainer />}
       <Content>
         <Card>
           <MainChart>
@@ -69,7 +74,7 @@ export default function Dashboard() {
             <ChartistGraph
               className="second-chart"
               // color="red"
-              data={couponsTaked}
+              data={viewShops}
               options={options}
               type="Line"
             />

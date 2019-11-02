@@ -48,6 +48,13 @@ export default function NavMenu({ navigation }) {
                 <p> Listar Cupons </p>
               </li>
             </Link>
+
+            <Link to="/listar/cupons/vistos">
+              <li>
+                <FaList color="#fff" size="20" />
+                <p> Listar Cupons Vistos </p>
+              </li>
+            </Link>
           </Menu>
         </Aside>
       </Wrapper>

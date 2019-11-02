@@ -9,6 +9,7 @@ export const Badge = styled.button`
   background: none;
   border: 0;
   position: relative;
+
   ${props =>
     props.hasUnread &&
     css`
@@ -23,6 +24,22 @@ export const Badge = styled.button`
         border-radius: 50%;
       }
     `}
+
+  span {
+    position: absolute;
+    top: 16px;
+    left: 8px;
+    height: 18px;
+    width: 18px;
+    display: block;
+    background: #954cbf;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    opacity: 0.8;
+  }
 `;
 
 export const NotificationList = styled.div`

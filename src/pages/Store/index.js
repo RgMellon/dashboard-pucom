@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import axios from 'axios';
+import { FaSpinner } from 'react-icons/fa';
 import { updateProfileRequest } from '~/store/modules/user/actions';
 
 import {
@@ -18,10 +19,12 @@ import {
   PucomForm,
   SearchCep,
   PucomInputMask,
+  SubmitButton,
 } from './styles';
 
 export default function Store() {
-  const { profile } = useSelector(state => state.user);
+  const { profile, loading } = useSelector(state => state.user);
+
   const dispatch = useDispatch();
 
   const [fantasyName, setFantasyName] = useState(profile.fantasy_name);
@@ -31,12 +34,11 @@ export default function Store() {
   const [district, setDistrict] = useState(profile.district);
   const [address, setAdress] = useState(profile.address);
   const [number, setNumber] = useState(profile.number);
+  const [description, setDescription] = useState(profile.description);
   const [phone, setPhone] = useState(profile.phone);
 
-  // const [image, setImage] = useState('');
-  // const [preview, setPreview] = useState('');
-  // const [loading, setLoading] = useState(false);
-  // const [type, setType] = useState('');
+  const [image, setImage] = useState('');
+  const [preview, setPreview] = useState('');
 
   async function handleSearchCep() {
     if (postalCode.length < 7) {
@@ -71,14 +73,22 @@ export default function Store() {
     data.append('address', address);
     data.append('number', number);
     data.append('phone', phone);
+    data.append('description', description);
     data.append('_method', 'PUT');
+    data.append('image', image);
 
     try {
-      dispatch(updateProfileRequest(data));
+      await dispatch(updateProfileRequest(data));
+      // setLoading(false);
     } catch (e) {
       console.tron.log(e);
       toast.error('Erro ao atualizar loja');
     }
+  }
+
+  function handleChange(e) {
+    setPreview(URL.createObjectURL(e.target.files[0]));
+    setImage(e.target.files[0]);
   }
 
   return (
@@ -89,7 +99,7 @@ export default function Store() {
           <p> Atualize os dados de sua loja </p>
         </HeaderTable>
         <PucomForm initialData={profile} onSubmit={handleSubmit}>
-          {/* <input type="file" name="" id="image" onChange={handleChange} /> */}
+          <input type="file" name="" id="image" onChange={handleChange} />
 
           <span> Nome Fantasia </span>
           <PucomInput
@@ -105,6 +115,13 @@ export default function Store() {
             placeholder="Social name"
             disabled
             // value={social_name}
+          />
+          <span> Conte um pouco sobre sua loja</span>
+          <PucomInput
+            onChange={e => setDescription(e.target.value)}
+            value={description}
+            multiline
+            name="description"
           />
 
           <span> CEP </span>
@@ -197,22 +214,21 @@ export default function Store() {
             // value={props.value}
           />
           <WrapperButton>
-            <button> Atualizar </button>
+            <SubmitButton loading={loading}>
+              {loading ? (
+                <FaSpinner size={14} color="#FFF" />
+              ) : (
+                <p> Atualizar </p>
+              )}
+            </SubmitButton>
           </WrapperButton>
         </PucomForm>
       </ContentLeft>
       <ContentRight>
         <CardProfile>
-          {/* <img src={profile.image} alt="imagem loja" /> */}
-          <h1> {profile.social_name} </h1>
-          <p>
-            There are many variations of passages of Lorem Ipsum available, but
-            the majority have suffered alteration in some form, by injected
-            humour, or randomised words which don't look even slightly
-            believable. If you are going to use a passage of Lorem Ipsum, you
-            need to be sure there isn't anything embarrassing hidden in the
-            middle of text.
-          </p>
+          <img src={preview || profile.image} alt="imagem loja" />
+          <h1> {profile.fantasy_name} </h1>
+          <p>{description}</p>
         </CardProfile>
       </ContentRight>
     </Container>

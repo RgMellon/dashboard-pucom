@@ -10,6 +10,7 @@ import Store from '../pages/Store';
 import CreateCupom from '../pages/CreateCupom';
 import EditCupom from '../pages/EditCupom';
 import ListCupons from '../pages/ListCupons';
+import ListWatchCupons from '../pages/ListWatchCupons';
 // import MeetappDetail from '../pages/MeetappDetail';
 // import MeetapppUpdate from '../pages/MeetappUpdate';
 // import Profile from '../pages/Profile';
@@ -20,6 +21,11 @@ export default function Routes() {
       <Route path="/" exact component={SignIn} />
       <Route path="/dashboard" component={Dashboard} isPrivate />
       <Route path="/store" component={Store} isPrivate />
+      <Route
+        path="/listar/cupons/vistos"
+        component={ListWatchCupons}
+        isPrivate
+      />
       <Route path="/listar/cupons" component={ListCupons} isPrivate />
       <Route exact path="/criar/cupom" component={CreateCupom} isPrivate />
       <Route exact path="/editar/cupom" component={EditCupom} isPrivate />

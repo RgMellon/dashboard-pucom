@@ -13,6 +13,8 @@ export default function LastCuponsViews() {
     async function getLastViewsCupons() {
       const response = await api.get('/datas/coupons/last/views');
       setData(response.data.views);
+
+      console.tron.log(response.data);
     }
 
     getLastViewsCupons();
